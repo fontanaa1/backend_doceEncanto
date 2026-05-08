@@ -84,7 +84,7 @@ app.use(logger);
 // Rota raiz — útil para verificar se o servidor está no ar.
 // Acesse: http://localhost:3000
 app.get('/', (req, res) => {
-    res.json({ mensagem: '🍰 Bem-vindo à API da Doceria Doce Encanto !' });
+    res.json({ mensagem: '🧁 Bem-vindo à API da Doceria Doce Encanto !' });
 });
 
 
@@ -92,12 +92,14 @@ app.get('/', (req, res) => {
 // Importamos os arquivos de rota da pasta /routes
 const rotasCategorias = require('./routes/categorias');
 const rotasProdutos = require('./routes/produtos');
+const rotasPedidos = require('./routes/pedidos');
 
 // app.use('prefixo', router) registra o router com um prefixo de URL.
 // Toda rota definida dentro de categorias.js ficará em /api/categorias/...
 // Toda rota definida dentro de produtos.js ficará em /api/produtos/...
 app.use('/api/categorias', rotasCategorias);
 app.use('/api/produtos', rotasProdutos);
+app.use('/api/pedidos', rotasPedidos);
 
 
 // =============================================================
@@ -111,7 +113,7 @@ app.use('/api/produtos', rotasProdutos);
 app.use((req, res, next) => {
     res.status(404).json({
         sucesso: false,
-        mensagem: `Rota '${req.url}' não encontrada na API do Haruy Sushi.`
+        mensagem: `Rota '${req.url}' não encontrada na API da Doceria Doce Encanto.`
     });
 });
 
@@ -137,19 +139,21 @@ app.listen(PORTA, () => {
     console.log('');
     console.log(' ================================');
     console.log(` 🧁 Servidor Doceria Doce Encanto rodando!`);
-    console.log(` Acesse: http://localhost:${PORTA}`);
+    console.log(` Acesso Local: http://localhost:${PORTA}`);
     console.log(' ================================');
     console.log('');
     console.log('📋 Rotas disponíveis:');
-    console.log(`   GET    http://localhost:${PORTA}/api/categorias`);
-    console.log(`   POST   http://localhost:${PORTA}/api/categorias`);
-    console.log(`   GET    http://localhost:${PORTA}/api/produtos`);
-    console.log(`   GET    http://localhost:${PORTA}/api/produtos/:id`);
-    console.log(`   POST   http://localhost:${PORTA}/api/produtos`);
-    console.log(`   PUT    http://localhost:${PORTA}/api/produtos/:id`);
-    console.log(`   DELETE http://localhost:${PORTA}/api/produtos/:id`);
+    console.log(`   GET    /api/categorias`);
+    console.log(`   POST   /api/categorias`);
+    console.log(`   GET    /api/produtos`);
+    console.log(`   GET    /api/produtos/:id`);
+    console.log(`   POST   /api/produtos`);
+    console.log(`   PUT    /api/produtos/:id`);
+    console.log(`   DELETE /api/produtos/:id`);
+    console.log(`   GET    /api/pedidos`);
+    console.log(`   POST   /api/pedidos`);
     console.log('');
     console.log('💣 Rota de teste de erro:');
-    console.log(`   GET    http://localhost:${PORTA}/api/produtos/erro-teste`);
+    console.log(`   GET    /api/produtos/erro-teste`);
     console.log('');
 });
